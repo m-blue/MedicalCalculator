@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.DecimalFormat;
 
@@ -35,7 +36,23 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 weightEntered = Double.parseDouble(weight.getText().toString());
-                DecimalFormat tenth = new DecimalFormat("#,#");
+                DecimalFormat tenth = new DecimalFormat("#.#");
+                if(lbToKilo.isChecked()){
+                    if(weightEntered <= 500){
+                        convertedWeight = weightEntered / conversionRate;
+                        result.setText(tenth.format(convertedWeight) + " kilograms");
+                    }else{
+                        Toast.makeText(MainActivity.this, "Pounds must be less than 500", Toast.LENGTH_LONG).show();
+                    }
+                }
+                if(kiloToLb.isChecked()){
+                    if(weightEntered <= 225){
+                        convertedWeight = weightEntered * conversionRate;
+                        result.setText(tenth.format(convertedWeight) + " pounds");
+                    }else{
+                        Toast.makeText(MainActivity.this, "Kilos must be less than 225", Toast.LENGTH_LONG).show();
+                    }
+                }
             }
         });
 
